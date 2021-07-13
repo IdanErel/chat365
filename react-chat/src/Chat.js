@@ -1,5 +1,6 @@
 import React from "react";
 import { Grid } from "semantic-ui-react";
+import SignIn from "./components/SignIn/SignIn";
 import Panel from "./components/Panel";
 import RoomList from "./components/RoomList";
 import MessageBoard from "./components/MessageBoard";
@@ -16,6 +17,7 @@ const Chat = () => (
         </Grid.Column>
       </Grid.Row>
     </Grid>
+    <SignIn />
   </React.Fragment>
 );
 export default Chat;

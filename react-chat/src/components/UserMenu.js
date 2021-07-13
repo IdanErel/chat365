@@ -1,5 +1,6 @@
 import React from "react";
-
+import { connect } from "react-redux";
+import { signOut } from "../authSlice";
 import { Icon, Dropdown } from "semantic-ui-react";
 
 class UserMenu extends React.Component {
@@ -23,7 +24,7 @@ class UserMenu extends React.Component {
             disabled
             text={
               <span>
-                Signed in as <strong>{this.props.user.username}</strong>
+                Signed in as <strong>{this.props.user}</strong>
               </span>
             }
           />
@@ -46,9 +47,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-// const mapDispatch = {
-//   toggleAddEventModal,
-//   signOut,
-// };
+const mapDispatch = {
+  signOut,
+};
 
-export default UserMenu;
+export default connect(mapStateToProps, mapDispatch)(UserMenu);

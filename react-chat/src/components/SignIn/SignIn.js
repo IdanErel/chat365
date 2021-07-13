@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { toggleSignInModal } from "../authSlice";
+import { toggleSignInModal } from "../../authSlice";
 import { TransitionablePortal, Modal, Grid } from "semantic-ui-react";
 import SignInForm from "./SignInForm";
 
@@ -49,8 +49,6 @@ const mapStateToProps = (state) => {
   };
 };
 const mapDispatch = {
-  toggleForgotModal,
-  toggleSignUpModal,
   toggleSignInModal,
 };
 

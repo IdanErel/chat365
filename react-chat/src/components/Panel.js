@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Container, Icon, Menu } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleSignInModal } from "../authSlice";
 import UserMenu from "./UserMenu";
 const Panel = (props) => {
-  const isSignedIn = useSelector((state) => state.isSignedIn);
+  const isSignedIn = useSelector((state) => state.auth.isSignedIn);
   const dispatch = useDispatch();
+  useEffect(() => {}, []);
+  console.log(isSignedIn);
   return (
     <div style={{ marginBottom: 20 }}>
       <Menu inverted>
@@ -19,7 +21,7 @@ const Panel = (props) => {
               <Menu.Item>
                 <Button
                   onClick={() => {
-                    dispatch({ type: "toggleSignInModal" });
+                    dispatch(toggleSignInModal());
                   }}
                   inverted
                   style={{ marginRight: "0.5em" }}
@@ -36,4 +38,5 @@ const Panel = (props) => {
     </div>
   );
 };
+
 export default Panel;
