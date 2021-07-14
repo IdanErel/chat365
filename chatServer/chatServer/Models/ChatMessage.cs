@@ -7,5 +7,7 @@ namespace chatServer.Models
 {
     public class ChatMessage
     {
+        public string username { get; set; }
+        public string message { get; set; }
     }
 }
