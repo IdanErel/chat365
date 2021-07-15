@@ -4,12 +4,16 @@ import { changeRoom } from "../dataSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 const RoomList = () => {
-  const handleItemClick = (e, { name }) => dispatch(changeRoom(name));
+  const handleItemClick = (e, { name }) => {
+    if (name !== selectedRoom) dispatch(changeRoom(name));
+  };
   const selectedRoom = useSelector((state) => state.data.selectedRoom);
+  const isSignedIn = useSelector((state) => state.data.isSignedIn);
   const dispatch = useDispatch();
   return (
     <Menu style={{ minHeight: "85vh" }} fluid vertical>
       <Menu.Item
+        disabled={!isSignedIn}
         name="General"
         active={selectedRoom === "General"}
         onClick={handleItemClick}
@@ -19,6 +23,7 @@ const RoomList = () => {
       </Menu.Item>
 
       <Menu.Item
+        disabled={!isSignedIn}
         name="Random"
         active={selectedRoom === "Random"}
         onClick={handleItemClick}
@@ -28,6 +33,7 @@ const RoomList = () => {
       </Menu.Item>
 
       <Menu.Item
+        disabled={!isSignedIn}
         name="Sports"
         active={selectedRoom === "Sports"}
         onClick={handleItemClick}
