@@ -1,4 +1,9 @@
-import { joinedRoom, receiveMessage } from "./dataSlice";
+import {
+  joinedRoom,
+  receiveMessage,
+  userJoinedRoom,
+  userLeftRoom,
+} from "./dataSlice";
 import {
   HubConnectionBuilder,
   withCallbacks,
@@ -13,6 +18,13 @@ const connection = new HubConnectionBuilder()
 const callbacks = withCallbacks()
   .add("ReceiveMessage", (message, username, newUser) => (dispatch) => {
     dispatch(receiveMessage({ message, username, newUser }));
+  })
+  .add("UserLeftRoom", (user) => (dispatch) => {
+    console.log("left");
+    dispatch(userLeftRoom(user));
+  })
+  .add("UserJoinedRoom", (user) => (dispatch) => {
+    dispatch(userJoinedRoom(user));
   })
   .add("JoinRoom", (messageList, userList) => (dispatch) => {
     dispatch(joinedRoom({ messageList, userList }));

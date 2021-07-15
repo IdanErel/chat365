@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 let user = JSON.parse(sessionStorage.getItem("user"));
+
 const dataSlice = createSlice({
   name: "data",
   initialState: {
@@ -18,18 +19,24 @@ const dataSlice = createSlice({
         message: action.payload.message,
       });
       state.messageList = newMsgList;
-      if (action.payload.newUser) {
-        let newUserList = [...state.userList];
-        newUserList.push(action.payload.newUser);
-        state.userList = newUserList;
-      }
+    },
+    userLeftRoom(state, action) {
+      let newUserList = [...state.userList];
+      newUserList = newUserList.filter((user) => user !== action.payload);
+      console.log(newUserList);
+      state.userList = newUserList;
+    },
+    userJoinedRoom(state, action) {
+      let newUserList = [...state.userList];
+      newUserList.push(action.payload);
+      state.userList = newUserList;
     },
     changedRoom(state, action) {
       state.selectedRoom = action.payload;
     },
     joinedRoom(state, action) {
       state.messageList = action.payload.messageList;
-      state.userList = action.payload.userList;
+      state.userList = action.payload.userList.map((user) => user.name);
     },
     toggleSignInModal(state) {
       state.showSignInModal = !state.showSignInModal;
@@ -55,6 +62,8 @@ export const {
   changedRoom,
   toggleSignInModal,
   loginUser,
+  userJoinedRoom,
+  userLeftRoom,
   signedOut,
   joinedRoom,
   receiveMessage,
@@ -63,22 +72,22 @@ export const {
 export default dataSlice.reducer;
 
 export const changeRoom = (roomName) => {
-  return (dispatch, getState, invoke) => {
-    dispatch(changedRoom(roomName));
-    invoke(
+  return async (dispatch, getState, invoke) => {
+    await invoke(
       "ChangeRoom",
       getState().data.user,
       roomName,
       getState().data.selectedRoom
     );
+    dispatch(changedRoom(roomName));
   };
 };
 
 export const signOut = () => {
   return (dispatch, getState, invoke) => {
-    dispatch(signedOut());
     let room = getState().data.selectedRoom;
     if (room !== "") invoke("LeaveRoom", getState().data.user, room);
+    dispatch(signedOut());
   };
 };
 

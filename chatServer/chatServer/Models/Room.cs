@@ -9,6 +9,6 @@ namespace chatServer.Models
     {
         public string roomName { get; set; }
         public List<ChatMessage> messageList { get; set; } = new List<ChatMessage>();
-        public List<string> userList { get; set; } = new List<string>();
+        public List<User> userList { get; set; } = new List<User>();
     }
 }

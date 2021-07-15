@@ -44,9 +44,9 @@ const MessageBoard = () => {
 
 const renderMessages = (messageList) => {
   let msgs = [];
-  messageList?.forEach((msg) => {
+  messageList?.forEach((msg, i) => {
     msgs.push(
-      <List.Item key={msg}>
+      <List.Item key={i}>
         <Icon size="large" name="user" />
         <List.Content>
           <List.Header>{msg.username}</List.Header>

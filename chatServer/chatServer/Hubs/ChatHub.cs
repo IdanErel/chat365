@@ -23,13 +23,16 @@ namespace chatServer.Hubs
                 if (!String.IsNullOrEmpty(leftRoomName))
                 {
                     var leftRoom = rooms.Find((x) => x.roomName == leftRoomName);
-                    leftRoom.userList.Remove(username);
+                    leftRoom.userList.RemoveAll((user)=>user.id==Context.ConnectionId&&user.name==username);
+                    await Clients.OthersInGroup(leftRoomName).SendAsync("UserLeftRoom", username);
                     await Groups.RemoveFromGroupAsync(Context.ConnectionId, leftRoomName);
+
                 }
-                    await Groups.AddToGroupAsync(Context.ConnectionId, joinedRoomName);
-                    room.userList.Add(username);
-                    await Clients.OthersInGroup(joinedRoomName).SendAsync("ReceiveMessage", "User " + username + " joined the room!", "Admin",username);
-                    await Clients.Caller.SendAsync("JoinRoom", room.messageList, room.userList);
+                await Groups.AddToGroupAsync(Context.ConnectionId, joinedRoomName);
+                    room.userList.Add(new User { id = Context.ConnectionId, name = username });
+                    await Clients.OthersInGroup(joinedRoomName).SendAsync("ReceiveMessage", "User " + username + " joined the room!", "Admin");
+                await Clients.OthersInGroup(joinedRoomName).SendAsync("UserJoinedRoom", username);
+                await Clients.Caller.SendAsync("JoinRoom", room.messageList, room.userList);
                 
             }
             catch (Exception)
@@ -39,13 +42,31 @@ namespace chatServer.Hubs
             }
                 
         }
-        public  Task LeaveRoom(string username, string roomName)
+        public override Task OnDisconnectedAsync(Exception exception)
+        {
+            try
+            {
+                var room = rooms.Find((x) => x.userList.Exists((user) => user.id == Context.ConnectionId));
+                if (room != null)
+                    room.userList.RemoveAll(user => user.id == Context.ConnectionId);
+                return base.OnDisconnectedAsync(exception);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+        public  async Task LeaveRoom(string username, string roomName)
         {
             try
             {
                 var room = rooms.Find((x) => x.roomName == roomName);
-                room.userList.Remove(username);
-                return Groups.RemoveFromGroupAsync(Context.ConnectionId, roomName);
+                room.userList.RemoveAll((user) => user.id == Context.ConnectionId && user.name == username);
+                await Clients.OthersInGroup(roomName).SendAsync("UserLeftRoom", username);
+                await Groups.RemoveFromGroupAsync(Context.ConnectionId, roomName);
+
             }
             catch (Exception)
             {

@@ -6,9 +6,9 @@ const UserList = () => {
   const userList = useSelector((state) => state.data.userList);
   const renderUsers = () => {
     let users = [];
-    userList?.forEach((user) => {
+    userList?.forEach((user, i) => {
       users.push(
-        <List.Item key={user}>
+        <List.Item key={i}>
           <List.Icon name="user" />
           <List.Content>{user}</List.Content>
         </List.Item>
