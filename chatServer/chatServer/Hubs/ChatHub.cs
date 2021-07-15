@@ -28,7 +28,7 @@ namespace chatServer.Hubs
                 }
                     await Groups.AddToGroupAsync(Context.ConnectionId, joinedRoomName);
                     room.userList.Add(username);
-                    await Clients.OthersInGroup(joinedRoomName).SendAsync("ReceiveMessage", "User " + username + " joined the room!", "Admin");
+                    await Clients.OthersInGroup(joinedRoomName).SendAsync("ReceiveMessage", "User " + username + " joined the room!", "Admin",username);
                     await Clients.Caller.SendAsync("JoinRoom", room.messageList, room.userList);
                 
             }
