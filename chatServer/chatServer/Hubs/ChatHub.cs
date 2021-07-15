@@ -63,7 +63,11 @@ namespace chatServer.Hubs
             {
                 var room = rooms.Find((x) => x.userList.Exists((user) => user.id == Context.ConnectionId));
                 if (room != null)
-                    room.userList.RemoveAll(user => user.id == Context.ConnectionId);
+                {
+                    var user = room.userList.Find((usr) => usr.id == Context.ConnectionId);
+                    Clients.OthersInGroup(room.roomName).SendAsync("UserLeftRoom", user.name);
+                    room.userList.RemoveAll(usr => usr.id == Context.ConnectionId);
+                }
                 return base.OnDisconnectedAsync(exception);
             }
             catch (Exception)
