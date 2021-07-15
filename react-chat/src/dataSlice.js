@@ -1,6 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+/**
+ * using redux toolkit for "slicing" the state
+ * defining the actions and the reducers that handles them.
+ * taking user from session storage if available
+ */
 let user = JSON.parse(sessionStorage.getItem("user"));
-
 const dataSlice = createSlice({
   name: "data",
   initialState: {
@@ -23,7 +27,6 @@ const dataSlice = createSlice({
     userLeftRoom(state, action) {
       let newUserList = [...state.userList];
       newUserList = newUserList.filter((user) => user !== action.payload);
-      console.log(newUserList);
       state.userList = newUserList;
     },
     userJoinedRoom(state, action) {
@@ -71,6 +74,9 @@ export const {
 
 export default dataSlice.reducer;
 
+/**
+ * exporting actions to invoke server methods using signalr middleware
+ */
 export const changeRoom = (roomName) => {
   return async (dispatch, getState, invoke) => {
     await invoke(

@@ -1,13 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Button, Container, Icon, Menu } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleSignInModal } from "../dataSlice";
 import UserMenu from "./UserMenu";
-const Panel = (props) => {
+/**
+ * Simple head panel to the appliction with sign in button
+ * after logging in, renders a user menu with logging out button
+ * dispaches log in modal to render the log in modal
+ */
+
+const Panel = () => {
   const isSignedIn = useSelector((state) => state.data.isSignedIn);
   const dispatch = useDispatch();
-  useEffect(() => {}, []);
-  console.log(isSignedIn);
   return (
     <div style={{ marginBottom: 20 }}>
       <Menu inverted>

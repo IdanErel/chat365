@@ -1,14 +1,17 @@
 import React from "react";
-import { Form, Button, Segment, Message, Divider } from "semantic-ui-react";
-import { Field, reduxForm, SubmissionError } from "redux-form";
+import { Form, Button, Segment, Message } from "semantic-ui-react";
+import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { loginUser } from "../../dataSlice";
-
+/**
+ * A sign in form that uses redux-form for future features
+ * has easy to use error handling and validation capabilities
+ */
 class SignInForm extends React.Component {
   onSubmit = async (formValues) => {
     const { username } = formValues;
     try {
-      return await this.props.loginUser(username);
+      return await this.props.loginUser(username); // can send user login to the server for auth
     } catch (error) {
       if (error) {
         console.log(error);

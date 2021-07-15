@@ -2,7 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import { signOut } from "../dataSlice";
 import { Icon, Dropdown } from "semantic-ui-react";
-
+/**
+ * User list component that renders all users in the room
+ * user data is kept on the redux store
+ */
 class UserMenu extends React.Component {
   trigger = (
     <span>

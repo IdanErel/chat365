@@ -5,7 +5,10 @@ import Panel from "./components/Panel";
 import RoomList from "./components/RoomList";
 import UserList from "./components/UserList";
 import MessageBoard from "./components/MessageBoard";
-
+/**
+ * The main chat component that is divided with a grid
+ * renders all the other chat components as children
+ */
 const Chat = () => {
   return (
     <React.Fragment>
@@ -15,10 +18,10 @@ const Chat = () => {
           <Grid.Column width={3}>
             <RoomList />
           </Grid.Column>
-          <Grid.Column width={6}>
+          <Grid.Column width={9}>
             <MessageBoard />
           </Grid.Column>
-          <Grid.Column width={3}>
+          <Grid.Column style={{ borderLeft: "2px solid gray" }} width={3}>
             <UserList />
           </Grid.Column>
         </Grid.Row>

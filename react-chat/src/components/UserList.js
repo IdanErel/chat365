@@ -1,5 +1,5 @@
 import React from "react";
-import { List } from "semantic-ui-react";
+import { List, Header } from "semantic-ui-react";
 import { useSelector } from "react-redux";
 
 const UserList = () => {
@@ -16,6 +16,11 @@ const UserList = () => {
     });
     return users;
   };
-  return <List>{renderUsers()}</List>;
+  return (
+    <div>
+      <Header size={"medium"}>Users in room</Header>
+      <List>{renderUsers()}</List>
+    </div>
+  );
 };
 export default UserList;

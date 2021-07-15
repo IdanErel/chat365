@@ -3,7 +3,10 @@ import { connect } from "react-redux";
 import { toggleSignInModal } from "../../dataSlice";
 import { TransitionablePortal, Modal, Grid } from "semantic-ui-react";
 import SignInForm from "./SignInForm";
-
+/**
+ * A Sign In modal class component for logging in
+ * used as a reference for difference between class and function component
+ */
 class SignIn extends React.Component {
   render() {
     return (
@@ -23,8 +26,8 @@ class SignIn extends React.Component {
                   <div style={{ paddingTop: 20 }}>
                     <h3>Sign into your Chat 365 Account</h3>
                     <p>
-                      Log into your account and start chatting! You can see the
-                      messages as a guest.
+                      Log into your account and start chatting! Select a room
+                      from the list before sending a message.
                     </p>
                   </div>
                 </Grid.Column>

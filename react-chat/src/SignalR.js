@@ -9,7 +9,11 @@ import {
   withCallbacks,
   signalMiddleware,
 } from "redux-signalr";
-
+/**
+ * this file is the signalR connection and creation of the middleware used for redux
+ * this allows accesss to the state and dispatch in the events from the server
+ * this also allows to "invoke" methods on the server in the redux action using redux-signalr library
+ */
 const connection = new HubConnectionBuilder()
   .withUrl("https://localhost:44338/ChatHub")
   .withAutomaticReconnect()
@@ -20,7 +24,6 @@ const callbacks = withCallbacks()
     dispatch(receiveMessage({ message, username, newUser }));
   })
   .add("UserLeftRoom", (user) => (dispatch) => {
-    console.log("left");
     dispatch(userLeftRoom(user));
   })
   .add("UserJoinedRoom", (user) => (dispatch) => {
