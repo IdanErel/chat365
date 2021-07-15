@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { toggleSignInModal } from "../../authSlice";
+import { toggleSignInModal } from "../../dataSlice";
 import { TransitionablePortal, Modal, Grid } from "semantic-ui-react";
 import SignInForm from "./SignInForm";
 
@@ -44,8 +44,8 @@ class SignIn extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    open: state.auth.showSignInModal,
-    isSignedIn: state.auth.isSignedIn,
+    open: state.data.showSignInModal,
+    isSignedIn: state.data.isSignedIn,
   };
 };
 const mapDispatch = {

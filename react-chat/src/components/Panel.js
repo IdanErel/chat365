@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { Button, Container, Icon, Menu } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleSignInModal } from "../authSlice";
+import { toggleSignInModal } from "../dataSlice";
 import UserMenu from "./UserMenu";
 const Panel = (props) => {
-  const isSignedIn = useSelector((state) => state.auth.isSignedIn);
+  const isSignedIn = useSelector((state) => state.data.isSignedIn);
   const dispatch = useDispatch();
   useEffect(() => {}, []);
   console.log(isSignedIn);

@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Button, Segment, Message, Divider } from "semantic-ui-react";
 import { Field, reduxForm, SubmissionError } from "redux-form";
 import { connect } from "react-redux";
-import { loginUser } from "../../authSlice";
+import { loginUser } from "../../dataSlice";
 
 class SignInForm extends React.Component {
   onSubmit = async (formValues) => {
@@ -75,7 +75,7 @@ const validate = (formValues) => {
   return errors;
 };
 const mapStateToProps = (state) => {
-  return { isLoading: state.auth.isLoading };
+  return { isLoading: state.data.isLoading };
 };
 export default connect(mapStateToProps, { loginUser })(
   reduxForm({ form: "signInForm", validate })(SignInForm)
